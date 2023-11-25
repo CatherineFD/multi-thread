@@ -1,10 +1,12 @@
+package model;
+
 import java.util.Random;
 
-public class GameModel {
+public class error_GameModel {
     private final int randomNumber;
     private int currentPlayerIndex;
 
-    public GameModel() {
+    public error_GameModel() {
         Random rand = new Random();
         randomNumber = rand.nextInt(100) + 1; // Генерация случайного числа от 1 до 100
         this.currentPlayerIndex = 0; // Индекс текущего игрока
@@ -19,4 +21,18 @@ public class GameModel {
         return comparisonNumber;
     }
 
+    public synchronized String getCurrentPlayer() {
+        switch (currentPlayerIndex) {
+            case 0:
+                return "Player 1";
+            case 1:
+                return "Player 2";
+            case 2:
+                return "Player 3";
+            case 3:
+                return "Player 4";
+            default:
+                return "";
+        }
+    }
 }

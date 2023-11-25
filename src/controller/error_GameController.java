@@ -1,19 +1,23 @@
+package controller;
+
+import model.error_GameModel;
 import java.util.*;
-public class GameController implements Runnable {
-    private GameModel model;
+public class error_GameController implements Runnable {
+    private error_GameModel model;
     private String playerName;
 
-    public GameController(GameModel model, String playerName) {
+    public error_GameController(error_GameModel model, String playerName) {
         this.model = model;
         this.playerName = playerName;
     }
 
-    public void run() {
+    public synchronized void run() {
         int guessNumber;
         int comparisonNumber = 100;
         String resultCompare = "";
 
         while (comparisonNumber != 0) {
+            System.out.println("the player " + this.playerName + " enters a number:" );
             guessNumber = inputNumberByPlayer();
             comparisonNumber = model.isNumberGuessed(guessNumber);
             resultCompare = hintGenerator(comparisonNumber);
@@ -47,9 +51,11 @@ public class GameController implements Runnable {
     private String hintGenerator (int number) {
         String resultCompare = "";
         if (number > 0) {
-            resultCompare = "Вы ввели слишком МАЛЕНЬКОЕ число";
+            resultCompare = "Вы ввели слишком маленькое число";
+        } else if (number < 0){
+            resultCompare = "Вы ввели слишком большое число";
         } else {
-            resultCompare = "Вы ввели слишком БОЛЬШОЕ число";
+            resultCompare = "Вы угадали";
         }
 
         return resultCompare;
